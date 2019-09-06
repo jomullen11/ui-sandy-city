@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ArticlePresenter from '../Components/ArticlePresenter'
-import WriteComment from "../Components/Write-comment";
-import CommentsPresenter from "../Components/Comments-presenter";
 import { API_URL } from "../Nav/config";
 import PageInput from '../Components/PageInput'
 import CommentBox from '../Components/CommentBox'
 
 const Home = (props) => {
-    const [email, setEmail] = useState('jordantmullen11@gmail.com')
+    const [email, setEmail] = useState('jdogm@msn.com')
     const [isAdmin, setAdmin] = useState(false)
 
     const setAdminState = () => {
@@ -17,16 +15,6 @@ const Home = (props) => {
             setAdmin(false)
         }
     }
-
-const handleDelete = async (event, id) => {
-    event.prevenDefault()
-    console.log(id)
-    await fetch(`${ API_URL }/comments/${ id }`, {
-    method: "DELETE",
-    }).then(data => data.map((element) => console.log(element.id)))
-    .then(() => alert('Deleted Succesfully'))
-    .catch(err => console.log(err))
-}
 
 useEffect(() => {
     setAdminState()
@@ -43,7 +31,7 @@ return (
 
     <hr />
 
-    <CommentBox isAdmin={isAdmin}/>
+    <CommentBox isAdmin={isAdmin} email={email}/>
 
     </div>
 );

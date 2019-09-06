@@ -5,7 +5,8 @@ import { API_URL } from '../Nav/config'
 const WriteComment = (props) => {
     const { value:name, bind:bindNameInput, reset:resetNameInput } = useInput('');
     const { value:comment, bind:bindCommentInput, reset: resetCommentInput } = useInput();
-    const state = {name, comment}
+    const userEmail = props.email
+    const state = {name, comment, userEmail}
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -13,9 +14,9 @@ const WriteComment = (props) => {
             method: 'POST',
             headers: {"content-type": "application/json"},
             body: JSON.stringify(state)
-        })
-        // .then(resetNameInput())
-        // .then(resetCommentInput())
+        }).then(() => console.log(state))
+        .then(resetNameInput())
+        .then(resetCommentInput())
         .then(() => alert('Thanks for Your Comment'))
         .catch(err => console.log(err))
     }

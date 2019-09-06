@@ -1,14 +1,14 @@
 //this file presents my info to the screen
-import React, { Component } from 'react'
+import React, { Component, setState } from 'react'
 import { API_URL } from '../Nav/config'
-import Update from './Update'
+import UpdateComment from './UpdateComment'
 
-class Presenter extends Component {
+class CommentsPresenter extends Component {
 
     state = {
-        isAdmin: this.props.isAdmin,
         isUpdating: false,
         commentRead: this.props.commentRead
+        // isAdmin is defined inside the conditional rendering
     }
 
     handleDelete = async () => {
@@ -24,7 +24,7 @@ class Presenter extends Component {
 
     updateForm = () => (
         <div>
-        <Update read={this.props.commentRead} closeUpdate={this.toggleUpdate} />
+        <UpdateComment read={this.props.commentRead} closeUpdate={this.toggleUpdate} />
         <input type="button" value="Cancel" onClick={this.toggleUpdate} />
         </div>
     )
@@ -37,6 +37,8 @@ class Presenter extends Component {
     )
     render() {
         const commentRead = this.props.commentRead
+        const isAdmin = this.props.isAdmin
+        const email = this.props.email
         return(
             <div>
                 <fieldset className='mb-3'>
@@ -46,7 +48,7 @@ class Presenter extends Component {
                     </ul>
                     {/* Update and Delete buttons if isAdmin is true */}
                     {
-                        this.state.isAdmin ?
+                        isAdmin || email === commentRead.userEmail ?
                         this.state.isUpdating ? <this.updateForm /> : <this.buttons />
                         :
                         null
@@ -57,4 +59,4 @@ class Presenter extends Component {
     }
 }
 
-export default Presenter
+export default CommentsPresenter

@@ -5,8 +5,8 @@ import CommentsPresenter from "../Components/Comments-presenter";
 
 const CommentBox = (props) => {
     const [commentRead, setCommentRead] = useState([])
-
     const isAdmin = props.isAdmin
+    const email = props.email
 
     const getComments = async () => {
         await fetch(`${API_URL}/comments`)
@@ -17,6 +17,7 @@ const CommentBox = (props) => {
                 commentRead={element}
                 key={element._id} /* refresh={this.getRead} */
                 isAdmin = {isAdmin}
+                email = {email}
             />
             )
         )
@@ -87,7 +88,7 @@ const CommentBox = (props) => {
         aria-labelledby="read-tab"
         >
         {
-            <WriteComment formClass="write-comment container d-flex flex-column" />
+            <WriteComment formClass="write-comment container d-flex flex-column" email={email}/>
         }{" "}
         <br />
         {commentRead}
@@ -99,7 +100,7 @@ const CommentBox = (props) => {
         aria-labelledby="write-tab"
         >
         {
-            <WriteComment formClass="write-comment container d-flex flex-column" />
+            <WriteComment formClass="write-comment container d-flex flex-column" email={email}/>
         }
         </div>
     </div>
